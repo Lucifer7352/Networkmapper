@@ -1,0 +1,100 @@
+import os
+import platform
+
+def nmap_scan(target):
+    print("\33[91m----------------------------------------------------------------------------------------\33[0m")
+    command = f"nmap {target}"
+    os.system(command)
+    print("\33[91m----------------------------------------------------------------------------------------\33[0m")
+def tcp_connect_scan(target):
+    nmap_scan(f"-sT -v {target}")
+def udp_scan(target):
+    nmap_scan(f"-sU -v {target}")
+def syn_scan(target):
+    nmap_scan(f"-sS -v {target}")
+def ack_scan(target):
+    nmap_scan(f"-sA {target}")
+def null_scan(target):
+    nmap_scan(f"-sN -v {target}")
+def fin_scan(target):
+    nmap_scan(f"-sF -v {target}")
+def xmas_scan(target):
+    nmap_scan(f"-sX -v {target}")
+def idle_scan(target):
+    zombie_host = input("Enter the zombie host IP address: ")
+    nmap_scan(f"-sI -v {zombie_host} {target}")
+def scans():
+    print("\33[33mChoose a scan type:\33[0m")
+    print("\33[92m1. TCP Connect Scan")
+    print("2. UDP Scan")
+    print("3. SYN Scan")
+    print("4. ACK Scan")
+    print("5. NULL Scan")
+    print("6. FIN Scan")
+    print("7. XMAS Scan")
+    print("8. Idle Scan\33[0m")
+    scan_type = input("\33[94mEnter your scan type:\33[0m ")
+    target = input("Enter the target IP address: ")
+
+    # Execute the chosen scan type
+    if scan_type == "1":
+        tcp_connect_scan(target)
+    elif scan_type == "2":
+        udp_scan(target)
+    elif scan_type == "3":
+        syn_scan(target)
+    elif scan_type == "4":
+        ack_scan(target)
+    elif scan_type == "5":
+        null_scan(target)
+    elif scan_type == "6":
+        fin_scan(target)
+    elif scan_type == "7":
+        xmas_scan(target)
+    elif scan_type == "8":
+        idle_scan(target)
+    else:
+        print("\033[91mInvalid scan type. Please try again.\33[0m")
+
+def host_discovery():
+    target = input("Enter IP address with range(X.X.X.X/24): ")
+    nmap_scan(f"-sn {target}")
+
+def os_detection():
+    target = input("Enter the target IP address: ")
+    nmap_scan(f"-O -v {target}")
+
+def version_detection():
+    target = input("Enter the target IP address: ")
+    nmap_scan(f"-sV -v {target}")
+
+def firewall_evasion():
+    target = input("Enter the target IP address: ")
+    nmap_scan(f"-Pn -sS -sV -f -v {target}")
+
+def main():
+    print("\33[33mChoose an option:\33[0m")
+    print("\33[92m1. Scans")
+    print("2. Host Discovery")
+    print("3. OS Detection")
+    print("4. Version Detection")
+    print("5. Firewall/IDS Evasion\33[0m")
+    choice = input("\033[94mEnter your choice:\33[0m ")
+
+    # Execute the chosen operation
+    if choice == "1":
+        scans()
+    elif choice == "2":
+        host_discovery()
+    elif choice == "3":
+        os_detection()
+    elif choice == "4":
+        version_detection()
+    elif choice == "5":
+        firewall_evasion()
+    else:
+        print("\33[91mInvalid choice. Please try again.\33[0m")
+
+if __name__ == "__main__":
+    main()
+                                                                                           
